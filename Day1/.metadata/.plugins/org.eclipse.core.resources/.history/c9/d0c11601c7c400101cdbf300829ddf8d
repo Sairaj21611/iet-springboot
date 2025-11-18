@@ -1,0 +1,30 @@
+package com.demo.test;
+
+import java.sql.*;
+
+public class TestPrepareStatement {
+	public static void main(String[] args) {
+		try {
+			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			
+			String url = "jdbc:mysql://192.168.10.117:3306/dac67?useSSL=false";
+			
+			Connection conn = DriverManager.getConnection(url,"dac67","welcome");
+			
+			PreparedStatement ps = conn.prepareStatement("select * from trains");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				System.out.println("Trainid"+rs.getInt("Trainid"));
+				System.out.println("Train name"+rs.getString("Train name"));
+				System.out.println("source"+rs.getString("Source"));
+				System.out.println("Destination"+rs.getString("Destination"));
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+}

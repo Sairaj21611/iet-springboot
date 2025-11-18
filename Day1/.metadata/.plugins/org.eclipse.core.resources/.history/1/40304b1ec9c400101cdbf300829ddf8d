@@ -1,0 +1,58 @@
+package com.demo.test;
+
+import java.sql.*;
+
+public class TestPrepareStatement {
+	public static void main(String[] args) {
+		Connection conn = null;
+		try {
+			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			
+			String url = "jdbc:mysql://192.168.10.117:3306/dac67?useSSL=false";
+			
+			conn = DriverManager.getConnection(url,"dac67","welcome");
+			
+			PreparedStatement ps = conn.prepareStatement("select * from trains");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				System.out.println("Trainid"+rs.getInt("Trainid"));
+				System.out.println("Trainname"+rs.getString("Trainname"));
+				System.out.println("source"+rs.getString("Source"));
+				System.out.println("Destination"+rs.getString("Destination"));
+				
+				System.out.println("--------------------------------------");
+			}
+			
+			PreparedStatement ps1 = conn.prepareStatement("insert into trains values(?,?,?,?)");
+			
+			int trainid = 111211;
+			String trainname = "samarth express";
+			String source = "Rahimatpur";
+			String destination = "Pune";
+			
+			ps1.setInt(1,trainid);
+			ps1.setString(2, trainname);
+			ps1.setString(3, source);
+			ps1.setString(4, destination);
+			
+			int n = ps1.executeUpdate();
+			if(n>0) {
+				System.out.println("Values updated successfully");
+			}else {
+				System.out.println("updation failed");
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

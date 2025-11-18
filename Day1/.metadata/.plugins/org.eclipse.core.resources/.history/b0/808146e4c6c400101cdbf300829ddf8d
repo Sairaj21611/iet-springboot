@@ -1,0 +1,21 @@
+package com.demo.test;
+
+import java.sql.*;
+
+public class TestPrepareStatement {
+	public static void main(String[] args) {
+		try {
+			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			
+			String url = "jdbc:mysql://192.168.10.117:3306/dac67?useSSL=false";
+			
+			Connection conn = DriverManager.getConnection(url,"dac67","welcome");
+			
+			PreparedStatement ps = conn.prepareStatement("select * from trains");
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+}
