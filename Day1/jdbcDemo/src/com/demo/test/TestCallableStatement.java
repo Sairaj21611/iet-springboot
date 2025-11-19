@@ -16,15 +16,15 @@ public class TestCallableStatement {
 			
 			cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		
-			 System.out.println(cst.execute());
+			 boolean status = cst.execute();
 			int cnt=cst.getInt(1);
 			
-//			System.out.println(status);
-//			if(status) {
-//				System.out.println("Executed Succesfully......");
-//			}else {
-//				System.out.println("Query is not executed......");
-//			}
+			System.out.println(status);
+			if(status) {
+				System.out.println("Executed Succesfully......");
+			}else {
+				System.out.println("Query is not executed......");
+			}
 			System.out.println(cnt);
 		} catch (SQLException e) {
 
@@ -36,7 +36,6 @@ public class TestCallableStatement {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 }
