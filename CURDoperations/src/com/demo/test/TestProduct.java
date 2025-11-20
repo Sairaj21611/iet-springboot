@@ -27,20 +27,52 @@ public class TestProduct {
 					}
 				}
 				case 2 -> {
+					System.out.print("Enter id for deletion : ");
+					int id = sc.nextInt();
 
+					boolean status = pservice.deleteById(id);
+					if (status) {
+						System.out.println("Deleted successfully\n");
+					} else {
+						System.out.println("Not Deleted \n");
+					}
 				}
 				case 3 -> {
+					System.out.print("Enter id for upadation : ");
+					int id = sc.nextInt();
 
+					System.out.print("Enter the product quantity : ");
+					int qty = sc.nextInt();
+					
+					System.out.print("Enter the price of product : ");
+					Double price = sc.nextDouble();
+					
+					boolean status = pservice.modifyById(id,qty,price);
+					
+					if(status) {
+						System.out.println("Updated Successfully ");
+					}else {
+						System.out.println("Not updated ");
+					}
 				}
 				case 4 -> {
-
+					System.out.print("Enter the id : ");
+					int id = sc.nextInt();
+					
+					Product p = pservice.getById(id);
+					
+					if(p!=null) {
+						System.out.println("The data of this id is present ");
+					}else {
+						System.out.println("Not found");
+					}
 				}
 				case 5 -> {
 					List<Product> plst = pservice.getAllProducts();
 					plst.forEach(System.out::println);
 				}
 				case 6 -> {
-
+					
 				}
 				}
 

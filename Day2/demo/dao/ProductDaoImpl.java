@@ -13,7 +13,6 @@ public class  ProductDaoImpl implements ProductDao{
 	static Connection conn;
 	static PreparedStatement insProd,findprod,findById,updateById,deleteById,sortByPrice;
     static {
-    	
     	try {
     		conn=DBUtil.getMyConnection();
 			insProd=conn.prepareStatement("insert into myproduct values(?,?,?,?,?)");
@@ -23,7 +22,6 @@ public class  ProductDaoImpl implements ProductDao{
 			deleteById=conn.prepareStatement("delete from myproduct where pid=?");
 			sortByPrice=conn.prepareStatement("select * from myproduct order by price");
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
     }
@@ -76,7 +74,6 @@ public class  ProductDaoImpl implements ProductDao{
 		try {
 			findById.setInt(1, id);
 			ResultSet rs=findById.executeQuery();
-			
 			if(rs.next()) {
 				if(rs.getDate(5)!=null) {
 					p=new Product(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getDouble(4),rs.getDate(5).toLocalDate());
@@ -100,7 +97,6 @@ public class  ProductDaoImpl implements ProductDao{
 			if(n>0)
 				return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -114,7 +110,6 @@ public class  ProductDaoImpl implements ProductDao{
 			if(n>0)
 				return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -145,7 +140,6 @@ public class  ProductDaoImpl implements ProductDao{
 	@Override
 	public void closeConnection() {
 		DBUtil.closeMyConnection();
-		
 	}
 
 }

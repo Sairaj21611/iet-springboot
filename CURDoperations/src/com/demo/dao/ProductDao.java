@@ -9,5 +9,13 @@ public interface ProductDao {
 	boolean save(Product p);
 
 	List<Product> findAllProducts();
+
+	boolean removeById(int id);
+
+	boolean updateById(int id, int qty, Double price);
+
+	Product getById(int id);
+
+	
 	
 }

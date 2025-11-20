@@ -12,7 +12,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	static Connection conn;
 
-	static PreparedStatement insertprod, findById;
+	static PreparedStatement insertprod, findById, deleteById, updateById, getById;
 
 	static {
 		conn = DBUtil.getMyConnection();
@@ -20,8 +20,11 @@ public class ProductDaoImpl implements ProductDao {
 		try {
 			insertprod = conn.prepareStatement("insert into test values(?,?,?,?,?)");
 			findById = conn.prepareStatement("select * from test");
+			deleteById = conn.prepareStatement("delete from test where pid=?");
+			updateById = conn.prepareStatement("update test set qty=?, price=? where pid=?");
+			findById = conn.prepareStatement("select * from test where pid=?");
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -68,5 +71,44 @@ public class ProductDaoImpl implements ProductDao {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public boolean removeById(int id) {
+		int n = 0;
+		try {
+			deleteById.setInt(1, id);
+
+			n = deleteById.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return n > 0;
+	}
+
+	@Override
+	public boolean updateById(int id, int qty, Double price) {
+
+		try {
+			updateById.setInt(1, qty);
+			updateById.setDouble(2, price);
+			updateById.setInt(3, id);
+
+			int n = updateById.executeUpdate();
+			if (n > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	@Override
+	public Product getById(int id) {
+		return null;
 	}
 }
