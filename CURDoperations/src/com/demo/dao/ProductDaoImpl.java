@@ -12,7 +12,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	static Connection conn;
 
-	static PreparedStatement insertprod, findById, deleteById, updateById, getById;
+	static PreparedStatement insertprod, findById, deleteById, updateById, getById, displayOrder;
 
 	static {
 		conn = DBUtil.getMyConnection();
@@ -23,6 +23,7 @@ public class ProductDaoImpl implements ProductDao {
 			deleteById = conn.prepareStatement("delete from test where pid=?");
 			updateById = conn.prepareStatement("update test set qty=?, price=? where pid=?");
 			findById = conn.prepareStatement("select * from test where pid=?");
+			displayOrder = conn.prepareStatement("select * from test order by pid");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -110,5 +111,28 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public Product getById(int id) {
 		return null;
+	}
+
+	@Override
+	public List<Product> displayInOrder() {
+		List<Product> plist = new ArrayList<>();
+		try {
+			ResultSet rs = displayOrder.executeQuery();
+			while (rs.next()) {
+				if (rs.getDate(5) != null) {
+					plist.add(new Product(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
+							rs.getDate(5).toLocalDate()));
+				} else {
+					plist.add(new Product(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4), null));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (plist.size() > 0) {
+			return plist;
+		} else {
+			return null;
+		}
 	}
 }

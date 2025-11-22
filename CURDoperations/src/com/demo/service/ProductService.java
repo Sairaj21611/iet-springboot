@@ -16,6 +16,8 @@ public interface ProductService {
 
 	Product getById(int id);
 
+	List<Product> displayInOrder();
+
 
 	
 

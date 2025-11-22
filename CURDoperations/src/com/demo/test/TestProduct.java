@@ -72,7 +72,8 @@ public class TestProduct {
 					plst.forEach(System.out::println);
 				}
 				case 6 -> {
-					
+					List<Product> plst = pservice.displayInOrder();
+					plst.forEach(System.out::println);
 				}
 				}
 

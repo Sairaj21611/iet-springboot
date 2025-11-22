@@ -16,6 +16,8 @@ public interface ProductDao {
 
 	Product getById(int id);
 
+	List<Product> displayInOrder();
+
 	
 	
 }

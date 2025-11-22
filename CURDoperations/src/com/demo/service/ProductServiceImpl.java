@@ -62,8 +62,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product getById(int id) {
-		
 		return pdao.getById(id);
+	}
+
+	@Override
+	public List<Product> displayInOrder() {
+		
+		return pdao.displayInOrder();
 	}
 
 	
