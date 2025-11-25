@@ -13,7 +13,6 @@ public class LoginDaoImpl implements LoginDao{
 	static Connection conn;
 	static {
 		conn=DBUtil.getMyConnection();
-		
 	}
 	@Override
 	public MyUser checkUser(String uname, String pass) {

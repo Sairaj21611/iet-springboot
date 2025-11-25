@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet{
     	 MyUser user=lservice.validateUser(uname,pass);
     	 
     	 
-    	 if(user != null)
+    	 if(user != null)	
     	 {
     	 //store user in session
     	 HttpSession session= request.getSession();
