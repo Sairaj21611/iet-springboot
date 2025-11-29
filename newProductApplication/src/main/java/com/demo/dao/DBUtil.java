@@ -6,6 +6,9 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	
+	public static void main(String[] args) {
+		System.out.println(getMyConnection());
+	}
 	
 	static Connection conn=null;
 	public static Connection getMyConnection()
@@ -13,13 +16,13 @@ public class DBUtil {
 		if(conn==null)
 		{
 			try {
+			//	DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 				DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 				String url="jdbc:mysql://192.168.10.117:3306/dac67?useSSL=false";
 				conn=DriverManager.getConnection(url,"dac67","welcome");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
 		
 		return conn;

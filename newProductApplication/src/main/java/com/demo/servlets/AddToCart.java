@@ -1,8 +1,11 @@
 package com.demo.servlets;
 
 import java.io.IOException;
+import java.util.*;
 import java.io.PrintWriter;
+import java.util.Set;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,13 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.demo.beans.MyUser;
+import com.demo.beans.Product;
 
-
-@WebServlet("/AddToCart")
+@WebServlet("/addtocart")
 public class AddToCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -31,10 +33,28 @@ public class AddToCart extends HttpServlet {
 			String pname = request.getParameter("pname");
 			double price = Double.parseDouble(request.getParameter("price"));
 			
-			int order_qty = Integer.parseInt(request.getParameter("qty"));
+			int order_qty = Integer.parseInt(request.getParameter("qty"));	
+			
+			Set<Product> cart = (Set<Product>) session.getAttribute("cart");
+			
+			if(cart == null) {
+				cart = new HashSet<>();
+			}
+			Product p = new Product(pid,pname,order_qty,price,null,0);
+			boolean status = cart.add(p);
+			
+			session.setAttribute("cart",cart);
+			
+			cart.stream().forEach(System.out::println);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("showproduct.jsp");
+			rd.forward(request, response);
+			
 		}
-		
-		
+		else {
+			out.println("<h1>Invalid credentials</h1>");
+			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+			rd.include(request, response);
+		}
 	}
-
 }
