@@ -22,7 +22,7 @@ public class TestLocalization {
         	locale=new Locale("my","marathi");
         	System.out.println("Country name :"+locale.getCountry()+"language: "+locale.getLanguage());
         	break;
-        	
+            
         }
         case 2:{
         	locale=Locale.US;
