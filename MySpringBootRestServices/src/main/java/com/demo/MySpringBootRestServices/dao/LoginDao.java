@@ -1,4 +1,4 @@
-    package com.demo.SpringBootRestWebservice.dao;
+ package com.demo.MySpringBootRestServices.dao;
 
     import org.springframework.stereotype.Repository;
 
